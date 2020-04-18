@@ -17,7 +17,7 @@ class MasterApiController extends BaseController
         $data = $this->model->find($id);
         if (!$data)
             return response()->json(['error'=>"{$this->nameController} não encontrado!"], 404);
-        if($data->imagem)
+        if($data[$this->labelImage])
             Storage::disk('public')->delete("/{$this->path}/{$data->imagem}");
         $data->delete();
         return response()->json(['success'=>"{$this->nameController} deletado com sucesso!"], 200);
@@ -46,7 +46,7 @@ class MasterApiController extends BaseController
         if($this->Request->hasFile($this->labelImage) && $this->Request->file($this->labelImage)->isValid())
         {
             $dataForm[$this->labelImage] = $this->uploadImagem($dataForm);
-            if ($data->imagem)
+            if ($data[$this->labelImage])
                 Storage::disk('public')->delete("/{$this->path}/{$data->imagem}");
         }
         $data->update($dataForm);
@@ -65,7 +65,7 @@ class MasterApiController extends BaseController
 
     protected function uploadImagem($dataForm)
     {
-        $extension = $this->Request->imagem->extension();
+        $extension = $this->Request->file($this->labelImage)->extension();
         $name = uniqid(date('His'));            
         $nameFile = "{$name}.{$extension}";
         $upload = Image::make($dataForm[$this->labelImage])->resize(177,236)->save(storage_path("app/public/{$this->path}/$nameFile", 70));
