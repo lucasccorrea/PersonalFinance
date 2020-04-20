@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSituacaoTitulosTable extends Migration
+class CreateTipoOperacaosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSituacaoTitulosTable extends Migration
      */
     public function up()
     {
-        Schema::create('situacao_titulos', function (Blueprint $table) {
-            $table->id()->autoIncrement(false);
+        Schema::create('tipo_operacaos', function (Blueprint $table) {
+            $table->smallIncrements('id')->autoIncrement(false)->primary();
             $table->string("descricao", 25)->unique();
-            $table->string("sigla", 2)->unique();
+            $table->set("tipo", ['E','S']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateSituacaoTitulosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('situacao_titulos');
+        Schema::dropIfExists('tipo_operacaos');
     }
 }

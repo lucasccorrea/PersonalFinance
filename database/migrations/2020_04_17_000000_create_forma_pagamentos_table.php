@@ -14,7 +14,7 @@ class CreateFormaPagamentosTable extends Migration
     public function up()
     {
         Schema::create('forma_pagamentos', function (Blueprint $table) {
-            $table->id()->autoIncrement(false);
+            $table->smallIncrements('id')->autoIncrement(false)->primary();
             $table->string("descricao", 25)->unique();
             $table->string("sigla", 3)->unique();
             $table->timestamps();

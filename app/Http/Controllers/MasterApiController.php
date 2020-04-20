@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 class MasterApiController extends BaseController
 {    
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    protected $model;
+    protected $labelImage;
+    protected $path;
+
+    
     public function destroy(int $id)
     {
         $data = $this->model->find($id);
