@@ -1,26 +1,29 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\RouteFileRegistrar;
+
 Route::get('me', 'AuthController@me');
 Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');
 Route::post('refresh', 'AuthController@refresh');
 
-
-Route::delete('clientes/{cliente}','Api\ClienteController@destroy');
-Route::get('clientes','Api\ClienteController@index');
-Route::get('clientes/{cliente}','Api\ClienteController@show');
-Route::get('clientes/{cliente}/telefone','Api\ClienteController@telefone');
-Route::post('clientes','Api\ClienteController@store');
-Route::put('clientes/{cliente}','Api\ClienteController@update');
-
-Route::delete('telefones/{cliente}','Api\TelefoneController@destroy');
-Route::get('telefones','Api\TelefoneController@index');
-Route::post('telefones','Api\TelefoneController@store');
-Route::put('telefones/{cliente}','Api\TelefoneController@update');
-
-Route::delete('titulos/{titulo}','Api\TituloController@destroy');
-Route::get('titulos','Api\TituloController@index');
-Route::get('titulos/{titulo}','Api\TituloController@show');
-Route::get('titulos/{titulo}/cliente','Api\TituloController@cliente');
-Route::post('titulos','Api\TituloController@store');
-Route::put('titulos/{titulo}','Api\TituloController@update');
+Route::group(['namespace' => 'Api', 'middleware' => 'auth:api'], function() {
+    Route::delete('clientes/{cliente}','ClienteController@destroy');
+    Route::get('clientes','ClienteController@index');
+    Route::get('clientes/{cliente}','ClienteController@show');
+    Route::get('clientes/{cliente}/telefone','ClienteController@telefone');
+    Route::post('clientes','ClienteController@store');
+    Route::put('clientes/{cliente}','ClienteController@update');
+    
+    Route::delete('telefones/{cliente}','TelefoneController@destroy');
+    Route::get('telefones','TelefoneController@index');
+    Route::post('telefones','TelefoneController@store');
+    Route::put('telefones/{cliente}','TelefoneController@update');
+    
+    Route::delete('titulos/{titulo}','TituloController@destroy');
+    Route::get('titulos','TituloController@index');
+    Route::get('titulos/{titulo}','TituloController@show');
+    Route::get('titulos/{titulo}/cliente','TituloController@cliente');
+    Route::post('titulos','TituloController@store');
+    Route::put('titulos/{titulo}','TituloController@update');
+});
