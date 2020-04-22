@@ -15,6 +15,7 @@ class MasterApiController extends BaseController
     protected $model;
     protected $labelImage;
     protected $path;
+    protected $qtdPaginate = 10;
 
     
     public function destroy(int $id)
@@ -30,7 +31,7 @@ class MasterApiController extends BaseController
 
     public function index()
     {
-        return $this->model->all();
+        return $this->model->paginate($this->qtdPaginate);
     }
 
     public function show(int $id)

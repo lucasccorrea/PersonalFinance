@@ -11,6 +11,7 @@ class ClienteController extends MasterApiController
     protected $path = 'clientes';
     protected $nameController = 'Cliente';
     protected $labelImage = 'imagem';
+    protected $qtdPaginate = 5;
     
     public function __construct(Cliente $cliente, Request $request)
     {

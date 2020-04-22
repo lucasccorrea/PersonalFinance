@@ -1,5 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
+Route::get('me', 'AuthController@me');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+Route::post('refresh', 'AuthController@refresh');
+
+
 Route::delete('clientes/{cliente}','Api\ClienteController@destroy');
 Route::get('clientes','Api\ClienteController@index');
 Route::get('clientes/{cliente}','Api\ClienteController@show');
